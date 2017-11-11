@@ -16,6 +16,13 @@ class MellatGateway(Gateway):
     __config_params__ = ['terminal_id', 'username', 'password', 'callback_url', 'proxies']
     _server_url = 'https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl'
 
+    def get_redirection(self, transaction) -> Redirection:
+        return Redirection(
+            url='https://bpm.shaparak.ir/pgwchannel/startpay.mellat',
+            body_params=dict(RefId=transaction.id),
+            method='post'
+        )
+
     def request_transaction(self, transaction: Transaction) -> Transaction:
         client = Client(self._server_url)
         if 'proxies' in self.config:
@@ -39,15 +46,10 @@ class MellatGateway(Gateway):
             res_code = res[0]
             if int(res_code) == 0:
                 transaction.id = res[1]
-                transaction.redirection = Redirection(
-                    url='https://bpm.shaparak.ir/pgwchannel/startpay.mellat',
-                    body_params=dict(RefId=res[1]),
-                    method='post'
-                )
             else:
                 raise TransactionError('Mellat: invalid information. %s' % res_code)
 
-        except zeep_exceptions.Fault as e:
+        except zeep_exceptions.Fault:
             raise TransactionError('Mellat: invalid information.')
 
         except zeep_exceptions.Error:

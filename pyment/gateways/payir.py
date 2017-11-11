@@ -15,6 +15,12 @@ class PayIrGateway(Gateway):
     __gateway_unit__ = 'IRR'
     __config_params__ = ['pin', 'callback_url']
 
+    def get_redirection(self, transaction) -> Redirection:
+        return Redirection(
+            url='https://pay.ir/payment/gateway/%s' % transaction.id,
+            method='get'
+        )
+
     def request_transaction(self, transaction: Transaction) -> Transaction:
         url = 'https://pay.ir/payment/send'
         data = {
@@ -35,10 +41,6 @@ class PayIrGateway(Gateway):
 
         if resp['status'] == 1:
             transaction.id = resp['transId']
-            transaction.redirection = Redirection(
-                url='https://pay.ir/payment/gateway/%s' % resp['transId'],
-                method='get'
-            )
         else:
             raise TransactionError('%s, code: %s' % (resp['errorMessage'], resp['errorCode']))
 

@@ -44,11 +44,17 @@ class IrankishGateway(Gateway):
         '-90': 'already verified'
     }
 
+    def get_redirection(self, transaction) -> Redirection:
+        return Redirection(
+            url='https://ikc.shaparak.ir/TPayment/Payment/index',
+            body_params=dict(token=transaction.id, merchantId=self.config['merchant'], pay='submit'),
+            method='post'
+        )
+
     def request_transaction(self, transaction: Transaction) -> Transaction:
         client = Client(self._server_url_request)
         if 'proxies' in self.config:
             client.transport.session.proxies = self.config['proxies']
-
         try:
             params = {
                 'merchantId': self.config['merchant'],
@@ -63,11 +69,6 @@ class IrankishGateway(Gateway):
             token = result.token
             if token:
                 transaction.id = token
-                transaction.redirection = Redirection(
-                    url='https://ikc.shaparak.ir/TPayment/Payment/index',
-                    body_params=dict(token=token, merchantId=self.config['merchant'], pay='submit'),
-                    method='post'
-                )
             else:
                 raise TransactionError('Irankish: invalid information. %s')
 

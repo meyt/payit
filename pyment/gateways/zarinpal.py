@@ -19,6 +19,12 @@ class ZarinpalGateway(Gateway):
     def _convert_iranian_rial_to_toman(amount):
         return int(amount / 10)
 
+    def get_redirection(self, transaction) -> Redirection:
+        return Redirection(
+            url='https://www.zarinpal.com/pg/StartPay/%s' % transaction.id,
+            method='get'
+        )
+
     def request_transaction(self, transaction: Transaction) -> Transaction:
         client = Client(self._server_url)
         try:
@@ -36,10 +42,6 @@ class ZarinpalGateway(Gateway):
 
         if result.Status == 100:
             transaction.id = result.Authority
-            transaction.redirection = Redirection(
-                url='https://www.zarinpal.com/pg/StartPay/%s' % transaction.id,
-                method='get'
-            )
         else:
             raise TransactionError('Zarinpal: invalid information')
 

@@ -1,6 +1,5 @@
 from typing import Type
-from pyment import Transaction
-from pyment import Gateway
+from pyment import Transaction, Gateway, rediraction
 
 
 class GatewayManager:
@@ -22,7 +21,10 @@ class GatewayManager:
     def get_gateway(self, gateway_alias) -> Gateway:
         return self._gateways[gateway_alias]
 
-    def request(self, gateway_alias: str, transaction: Transaction):
+    def get_redirection(self, gateway_alias: str, transaction: Transaction) -> rediraction.Redirection:
+        return self.get_gateway(gateway_alias).get_redirection(transaction)
+
+    def request(self, gateway_alias: str, transaction: Transaction) -> Transaction:
         return self.get_gateway(gateway_alias).request_transaction(transaction)
 
     def validate(self, gateway_alias: str, data: dict) -> Transaction:
