@@ -9,14 +9,14 @@ class Gateway:
     def __init__(self, config):
         self.config = config
 
-    def get_redirection(self, transaction: Transaction) -> rediraction.Redirection:
-        pass
+    def get_redirection(self, transaction: Transaction) -> rediraction.Redirection:  # pragma: nocover
+        raise NotImplementedError
 
-    def request_transaction(self, transaction: Transaction) -> Transaction:
-        pass
+    def request_transaction(self, transaction: Transaction) -> Transaction:  # pragma: nocover
+        raise NotImplementedError
 
-    def validate_transaction(self, data: dict) -> Transaction:
-        pass
+    def validate_transaction(self, data: dict) -> Transaction:  # pragma: nocover
+        raise NotImplementedError
 
-    def verify_transaction(self, transaction: Transaction, data):
-        pass
+    def verify_transaction(self, transaction: Transaction, data):  # pragma: nocover
+        raise NotImplementedError
