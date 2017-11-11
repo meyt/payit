@@ -42,6 +42,8 @@ class MellatGateway(Gateway):
                 'payerId': 0,
             }
             result = client.service.bpPayRequest(**params)
+            if not result:
+                raise TransactionError('Mellat: invalid information. %s' % result)
             res = str(result).split(',')
             res_code = res[0]
             if int(res_code) == 0:
