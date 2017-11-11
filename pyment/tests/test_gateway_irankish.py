@@ -23,7 +23,7 @@ class IrankishGatewayTest(unittest.TestCase):
                 order_id=1
             )
         )
-        gateway.get_redirection(transaction)
+        gateway.get_redirection(transaction).to_dict()
 
         valid_transaction = gateway.validate_transaction({
             'token': 'RETURNED_TOKEN',
