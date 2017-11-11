@@ -10,6 +10,7 @@ def get_side_effect(
         error_code=None,
         raise_url_error=False,
         raise_http_error=False):
+    # noinspection PyUnusedLocal
 
     def urlopen(*args, **kwargs):
         if raise_url_error:
