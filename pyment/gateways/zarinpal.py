@@ -36,8 +36,11 @@ class ZarinpalGateway(Gateway):
                 '',
                 self.config['callback_url']
             )
-        except zeep_exceptions.Error as e:
-            print(e)
+
+        except zeep_exceptions.Fault:
+            raise TransactionError('Zarinpal: invalid information')
+
+        except zeep_exceptions.Error:
             raise GatewayNetworkError
 
         if result.Status == 100 and result.Authority:
