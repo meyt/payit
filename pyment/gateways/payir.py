@@ -71,6 +71,8 @@ class PayIrGateway(Gateway):
         except error.HTTPError as e:
             if e.code == 422:
                 raise TransactionError('Invalid transaction id')
+            raise TransactionError('Invalid transaction information')
+        except error.URLError:
             raise GatewayNetworkError('Cannot connect to payline server.')
 
         if int(resp['status']) == 1:
