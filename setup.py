@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
-import os.path
 import re
+import os.path
+
+from setuptools import setup, find_packages
 
 package_name = 'pyment'
 
@@ -15,7 +16,7 @@ dependencies = [
 setup(
     name=package_name,
     version=package_version,
-    author='Mahdi Ghane.g',
+    author='Mahdi Ghanea.g',
     description='A very micro http framework.',
     long_description=open('README.rst').read(),
     url='https://github.com/meyt/pyment',
