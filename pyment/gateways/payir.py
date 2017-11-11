@@ -39,7 +39,7 @@ class PayIrGateway(Gateway):
         except error.URLError:
             raise GatewayNetworkError('Cannot connect to payline server.')
 
-        if resp['status'] == 1:
+        if resp['status'] == 1 and resp['transId']:
             transaction.id = resp['transId']
         else:
             raise TransactionError('%s, code: %s' % (resp['errorMessage'], resp['errorCode']))
