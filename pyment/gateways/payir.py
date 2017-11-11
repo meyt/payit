@@ -28,7 +28,7 @@ class PayIrGateway(Gateway):
             'amount': transaction.amount,
             'redirect': self.config['callback_url']
         }
-        if self.testing:
+        if self.testing:  # pragma: nocover
             url = 'https://pay.ir/payment/test/send'
             data['api'] = 'test'
 
@@ -60,7 +60,7 @@ class PayIrGateway(Gateway):
             'api': self.config['pin'],
             'transId': transaction.id,
         }
-        if self.testing:
+        if self.testing:  # pragma: nocover
             url = 'https://pay.ir/payment/test/verify'
             data['api'] = 'test'
 
