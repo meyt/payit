@@ -20,7 +20,7 @@ class Redirection:
         return dict(
             url=self.url,
             method=self.method,
-            queryParams=self.query_params,
-            bodyParams=self.body_params,
-            headerParams=self.header_params
+            query_params=self.query_params,
+            body_params=self.body_params,
+            header_params=self.header_params
         )
