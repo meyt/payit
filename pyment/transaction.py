@@ -1,3 +1,5 @@
+import json
+from pyment.utils import to_camel_case
 
 
 class Transaction:
@@ -12,7 +14,6 @@ class Transaction:
     id = None
     order_id = None
     amount = None
-    redirection = None
     validate_status = False
     meta = dict()
 
@@ -21,3 +22,12 @@ class Transaction:
             self.meta = meta
         self.amount = amount
         self.order_id = order_id
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'order_id': self.order_id,
+            'amount': self.amount,
+            'validate_status': self.validate_status,
+            'meta': self.meta
+        }

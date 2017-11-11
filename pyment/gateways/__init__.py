@@ -1,7 +1,7 @@
-from .ir_bankmellat import MellatGateway
-from .ir_payir import PayIrGateway
-from .ir_zarinpal import ZarinpalGateway
-from .ir_irankish import IrankishGateway
+from .mellat import MellatGateway
+from .payir import PayIrGateway
+from .zarinpal import ZarinpalGateway
+from .irankish import IrankishGateway
 
 __all__ = (
     MellatGateway,
