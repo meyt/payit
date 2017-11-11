@@ -68,8 +68,7 @@ class PayIrGateway(Gateway):
             req = request.Request(url, data=parse.urlencode(data).encode())
             resp = request.urlopen(req)
             resp = json.loads(resp.read().decode())
-        except error.URLError as e:
-            # noinspection PyUnresolvedReferences
+        except error.HTTPError as e:
             if e.code == 422:
                 raise TransactionError('Invalid transaction id')
             raise GatewayNetworkError('Cannot connect to payline server.')
