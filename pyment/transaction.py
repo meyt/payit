@@ -1,5 +1,3 @@
-import json
-from pyment.utils import to_camel_case
 
 
 class Transaction:
