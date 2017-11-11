@@ -44,26 +44,25 @@ class IrankishGatewayTest(unittest.TestCase):
 
         @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect())
         def test_verify_fail(_):
-            with self.assertRaises(TransactionError):
-                gateway.verify_transaction(transaction, dict())
-        test_verify_fail()
+            gateway.verify_transaction(transaction, dict())
+        with self.assertRaises(TransactionError):
+            test_verify_fail()
 
         @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(verify_result=-90))
         def test_verify_already_done(_):
-            with self.assertRaises(TransactionError):
-                gateway.verify_transaction(transaction, dict())
-        test_verify_already_done()
+            gateway.verify_transaction(transaction, dict())
+        with self.assertRaises(TransactionError):
+            test_verify_already_done()
 
         @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(verify_result=-900))
         def test_verify_unknown_error(_):
-            with self.assertRaises(TransactionError):
-                gateway.verify_transaction(transaction, dict())
-        test_verify_unknown_error()
+            gateway.verify_transaction(transaction, dict())
+        with self.assertRaises(TransactionError):
+            test_verify_unknown_error()
 
         @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_error=True))
         def test_verify_network_error(_):
-            with self.assertRaises(TransactionError):
-                gateway.verify_transaction(transaction, dict())
+            gateway.verify_transaction(transaction, dict())
         with self.assertRaises(GatewayNetworkError):
             test_verify_network_error()
 
