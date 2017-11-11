@@ -40,7 +40,7 @@ class ZarinpalGateway(Gateway):
             print(e)
             raise GatewayNetworkError
 
-        if result.Status == 100:
+        if result.Status == 100 and result.Authority:
             transaction.id = result.Authority
         else:
             raise TransactionError('Zarinpal: invalid information')
