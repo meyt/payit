@@ -1,8 +1,8 @@
 from datetime import datetime
 from zeep import Client, exceptions as zeep_exceptions
-from pyment import Gateway, Transaction
-from pyment.exceptions import GatewayNetworkError, TransactionError
-from pyment.rediraction import Redirection
+from payit import Gateway, Transaction
+from payit.exceptions import GatewayNetworkError, TransactionError
+from payit.rediraction import Redirection
 
 
 class MellatGateway(Gateway):

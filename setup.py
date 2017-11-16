@@ -4,7 +4,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-package_name = 'pyment'
+package_name = 'payit'
 py_version = sys.version_info[:2]
 
 # reading package's version (same way sqlalchemy does)
@@ -24,7 +24,7 @@ setup(
     author='Mahdi Ghanea.g',
     description='Online payment gateways wrapper library.',
     long_description=open('README.rst').read(),
-    url='https://github.com/meyt/pyment',
+    url='https://github.com/meyt/payit',
     packages=find_packages(),
     install_requires=dependencies,
     license='MIT License',

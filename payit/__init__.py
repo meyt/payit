@@ -2,7 +2,7 @@ from .transaction import Transaction
 from .gateway import Gateway
 from .manager import GatewayManager, GatewayManagerTesting
 from .exceptions import (
-    PymentException,
+    PayitException,
     GatewayException,
     GatewayNetworkError,
     GatewayInvalidError,

@@ -1,9 +1,9 @@
 import mock
 import unittest
 
-from pyment import Transaction, TransactionError, GatewayNetworkError
-from pyment.gateways import MellatGateway
-from pyment.tests.mockup.mellat_gateway import get_side_effect
+from payit import Transaction, TransactionError, GatewayNetworkError
+from payit.gateways import MellatGateway
+from payit.tests.mockup.mellat_gateway import get_side_effect
 
 
 class MellatGatewayTest(unittest.TestCase):
@@ -15,7 +15,7 @@ class MellatGatewayTest(unittest.TestCase):
         'proxies': 'socks5://127.0.0.1:9050'
     }
 
-    @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(returned_token='0,4444'))
+    @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(returned_token='0,4444'))
     def test_gateway(self, _):
         gateway = MellatGateway(config=self._config)
         transaction = gateway.request_transaction(
@@ -38,7 +38,7 @@ class MellatGatewayTest(unittest.TestCase):
         })
         self.assertEqual(invalid_transaction.validate_status, False)
 
-        @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(verify_result=0))
+        @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(verify_result=0))
         def test_verify_success(_):
             gateway.verify_transaction(transaction, dict(
                 SaleOrderId='44441',
@@ -46,7 +46,7 @@ class MellatGatewayTest(unittest.TestCase):
             ))
         test_verify_success()
 
-        @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(verify_result=100))
+        @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(verify_result=100))
         def test_verify_fail(_):
             gateway.verify_transaction(transaction, dict(
                 SaleOrderId='44441',
@@ -55,7 +55,7 @@ class MellatGatewayTest(unittest.TestCase):
         with self.assertRaises(TransactionError):
             test_verify_fail()
 
-        @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(settle_result=100))
+        @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(settle_result=100))
         def test_verify_settle_fail(_):
             gateway.verify_transaction(transaction, dict(
                 SaleOrderId='44441',
@@ -64,7 +64,7 @@ class MellatGatewayTest(unittest.TestCase):
         with self.assertRaises(TransactionError):
             test_verify_settle_fail()
 
-        @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(raise_zeep_error=True))
+        @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(raise_zeep_error=True))
         def test_verify_network_error(_):
             gateway.verify_transaction(transaction, dict(
                 SaleOrderId='44441',
@@ -74,7 +74,7 @@ class MellatGatewayTest(unittest.TestCase):
         with self.assertRaises(GatewayNetworkError):
             test_verify_network_error()
 
-    @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(returned_token=100))
+    @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(returned_token=100))
     def test_invalid_token(self, _):
         gateway = MellatGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -85,7 +85,7 @@ class MellatGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(returned_token=None))
+    @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(returned_token=None))
     def test_no_token(self, _):
         gateway = MellatGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -96,7 +96,7 @@ class MellatGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(raise_zeep_fault=True))
+    @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(raise_zeep_fault=True))
     def test_fault(self, _):
         gateway = MellatGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -107,7 +107,7 @@ class MellatGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.mellat.Client', side_effect=get_side_effect(raise_zeep_error=True))
+    @mock.patch('payit.gateways.mellat.Client', side_effect=get_side_effect(raise_zeep_error=True))
     def test_error(self, _):
         gateway = MellatGateway(config=self._config)
         with self.assertRaises(GatewayNetworkError):

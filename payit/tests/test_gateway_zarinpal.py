@@ -1,9 +1,9 @@
 import mock
 import unittest
 
-from pyment import Transaction, TransactionError, GatewayNetworkError
-from pyment.gateways import ZarinpalGateway
-from pyment.tests.mockup.zarinpal_gateway import get_side_effect
+from payit import Transaction, TransactionError, GatewayNetworkError
+from payit.gateways import ZarinpalGateway
+from payit.tests.mockup.zarinpal_gateway import get_side_effect
 
 
 class ZarinpalGatewayTest(unittest.TestCase):
@@ -14,7 +14,7 @@ class ZarinpalGatewayTest(unittest.TestCase):
         'proxies': 'socks5://127.0.0.1:9050'
     }
 
-    @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect())
+    @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect())
     def test_gateway(self, _):
         gateway = ZarinpalGateway(config=self._config)
         transaction = gateway.request_transaction(
@@ -37,30 +37,30 @@ class ZarinpalGatewayTest(unittest.TestCase):
         })
         self.assertEqual(invalid_transaction.validate_status, False)
 
-        @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(returned_status=100))
+        @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(returned_status=100))
         def test_verify_success(_):
             gateway.verify_transaction(transaction, dict())
         test_verify_success()
 
-        @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(returned_status=300))
+        @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(returned_status=300))
         def test_verify_fail(_):
             with self.assertRaises(TransactionError):
                 gateway.verify_transaction(transaction, dict())
         test_verify_fail()
 
-        @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(returned_status=101))
+        @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(returned_status=101))
         def test_verify_already_done(_):
             with self.assertRaises(TransactionError):
                 gateway.verify_transaction(transaction, dict())
         test_verify_already_done()
 
-        @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(raise_zeep_error=True))
+        @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(raise_zeep_error=True))
         def test_verify_network_error(_):
             gateway.verify_transaction(transaction, dict())
         with self.assertRaises(GatewayNetworkError):
             test_verify_network_error()
 
-    @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(returned_token=None))
+    @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(returned_token=None))
     def test_no_token(self, _):
         gateway = ZarinpalGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -71,7 +71,7 @@ class ZarinpalGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(raise_zeep_fault=True))
+    @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(raise_zeep_fault=True))
     def test_fault(self, _):
         gateway = ZarinpalGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -82,7 +82,7 @@ class ZarinpalGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.zarinpal.Client', side_effect=get_side_effect(raise_zeep_error=True))
+    @mock.patch('payit.gateways.zarinpal.Client', side_effect=get_side_effect(raise_zeep_error=True))
     def test_error(self, _):
         gateway = ZarinpalGateway(config=self._config)
         with self.assertRaises(GatewayNetworkError):

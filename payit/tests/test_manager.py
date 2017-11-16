@@ -1,6 +1,6 @@
 import unittest
 
-from pyment import GatewayManager, Transaction, Gateway, GatewayManagerTesting
+from payit import GatewayManager, Transaction, Gateway, GatewayManagerTesting
 
 
 class DummyGateway(Gateway):

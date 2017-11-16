@@ -1,5 +1,5 @@
 from typing import Type
-from pyment import Transaction, Gateway, rediraction
+from payit import Transaction, Gateway, rediraction
 
 
 class GatewayManager:

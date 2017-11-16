@@ -1,9 +1,9 @@
 import mock
 import unittest
 
-from pyment import Transaction, TransactionError, GatewayNetworkError
-from pyment.gateways import IrankishGateway
-from pyment.tests.mockup.irankish_gateway import get_side_effect
+from payit import Transaction, TransactionError, GatewayNetworkError
+from payit.gateways import IrankishGateway
+from payit.tests.mockup.irankish_gateway import get_side_effect
 
 
 class IrankishGatewayTest(unittest.TestCase):
@@ -14,7 +14,7 @@ class IrankishGatewayTest(unittest.TestCase):
         'proxies': 'socks5://127.0.0.1:9050'
     }
 
-    @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect())
+    @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect())
     def test_gateway(self, _):
         gateway = IrankishGateway(config=self._config)
         transaction = gateway.request_transaction(
@@ -37,36 +37,36 @@ class IrankishGatewayTest(unittest.TestCase):
         })
         self.assertEqual(invalid_transaction.validate_status, False)
 
-        @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(verify_result=1000))
+        @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(verify_result=1000))
         def test_verify_success(_):
             gateway.verify_transaction(transaction, dict())
         test_verify_success()
 
-        @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect())
+        @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect())
         def test_verify_fail(_):
             gateway.verify_transaction(transaction, dict())
         with self.assertRaises(TransactionError):
             test_verify_fail()
 
-        @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(verify_result=-90))
+        @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(verify_result=-90))
         def test_verify_already_done(_):
             gateway.verify_transaction(transaction, dict())
         with self.assertRaises(TransactionError):
             test_verify_already_done()
 
-        @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(verify_result=-900))
+        @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(verify_result=-900))
         def test_verify_unknown_error(_):
             gateway.verify_transaction(transaction, dict())
         with self.assertRaises(TransactionError):
             test_verify_unknown_error()
 
-        @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_error=True))
+        @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_error=True))
         def test_verify_network_error(_):
             gateway.verify_transaction(transaction, dict())
         with self.assertRaises(GatewayNetworkError):
             test_verify_network_error()
 
-    @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(returned_token=None))
+    @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(returned_token=None))
     def test_no_token(self, _):
         gateway = IrankishGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -77,7 +77,7 @@ class IrankishGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_fault=True))
+    @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_fault=True))
     def test_fault(self, _):
         gateway = IrankishGateway(config=self._config)
         with self.assertRaises(TransactionError):
@@ -88,7 +88,7 @@ class IrankishGatewayTest(unittest.TestCase):
                 )
             )
 
-    @mock.patch('pyment.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_error=True))
+    @mock.patch('payit.gateways.irankish.Client', side_effect=get_side_effect(raise_zeep_error=True))
     def test_error(self, _):
         gateway = IrankishGateway(config=self._config)
         with self.assertRaises(GatewayNetworkError):

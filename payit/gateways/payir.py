@@ -1,8 +1,8 @@
 import json
 from urllib import request, parse, error
-from pyment import Gateway, Transaction
-from pyment.exceptions import GatewayNetworkError, TransactionError
-from pyment.rediraction import Redirection
+from payit import Gateway, Transaction
+from payit.exceptions import GatewayNetworkError, TransactionError
+from payit.rediraction import Redirection
 
 
 class PayIrGateway(Gateway):

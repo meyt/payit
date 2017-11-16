@@ -1,6 +1,6 @@
 import unittest
 
-from pyment import Transaction
+from payit import Transaction
 
 
 class TransactionTest(unittest.TestCase):

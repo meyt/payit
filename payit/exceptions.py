@@ -1,10 +1,10 @@
 
 
-class PymentException(Exception):
+class PayitException(Exception):
     pass
 
 
-class GatewayException(PymentException):
+class GatewayException(PayitException):
     pass
 
 
@@ -16,7 +16,7 @@ class GatewayInvalidError(GatewayException):
     pass
 
 
-class TransactionError(PymentException):
+class TransactionError(PayitException):
     pass
 
 

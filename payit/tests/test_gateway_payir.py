@@ -1,9 +1,9 @@
 import mock
 import unittest
 
-from pyment import Transaction, TransactionError, GatewayNetworkError
-from pyment.gateways import PayIrGateway
-from pyment.tests.mockup.payir_gateway import get_side_effect
+from payit import Transaction, TransactionError, GatewayNetworkError
+from payit.gateways import PayIrGateway
+from payit.tests.mockup.payir_gateway import get_side_effect
 
 
 class PayIrGatewayTest(unittest.TestCase):
@@ -11,8 +11,8 @@ class PayIrGatewayTest(unittest.TestCase):
         'pin': '8523528',
         'callback_url': 'http://localhost/callback'
     }
-    _mock_request_path = 'pyment.gateways.payir.request.Request'
-    _mock_path = 'pyment.gateways.payir.request.urlopen'
+    _mock_request_path = 'payit.gateways.payir.request.Request'
+    _mock_path = 'payit.gateways.payir.request.urlopen'
 
     @mock.patch(_mock_request_path)
     @mock.patch(_mock_path, side_effect=get_side_effect())
