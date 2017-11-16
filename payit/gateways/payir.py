@@ -2,7 +2,7 @@ import json
 from urllib import request, parse, error
 from payit import Gateway, Transaction
 from payit.exceptions import GatewayNetworkError, TransactionError
-from payit.rediraction import Redirection
+from payit.redirection import Redirection
 
 
 class PayIrGateway(Gateway):

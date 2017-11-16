@@ -1,7 +1,7 @@
 from zeep import Client, exceptions as zeep_exceptions
 from payit import Gateway, Transaction
 from payit.exceptions import GatewayNetworkError, TransactionError, TransactionAlreadyPaidError
-from payit.rediraction import Redirection
+from payit.redirection import Redirection
 
 
 class IrankishGateway(Gateway):

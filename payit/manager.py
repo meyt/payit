@@ -1,5 +1,5 @@
 from typing import Type
-from payit import Transaction, Gateway, rediraction
+from payit import Transaction, Gateway, redirection
 
 
 class GatewayManager:
@@ -21,7 +21,7 @@ class GatewayManager:
     def get_gateway(self, gateway_alias) -> Gateway:
         return self._gateways[gateway_alias]
 
-    def get_redirection(self, gateway_alias: str, transaction: Transaction) -> rediraction.Redirection:
+    def get_redirection(self, gateway_alias: str, transaction: Transaction) -> redirection.Redirection:
         return self.get_gateway(gateway_alias).get_redirection(transaction)
 
     def request(self, gateway_alias: str, transaction: Transaction) -> Transaction:

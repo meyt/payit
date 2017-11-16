@@ -1,4 +1,4 @@
-from . import Transaction, rediraction
+from . import Transaction, redirection
 
 
 class Gateway:
@@ -9,7 +9,7 @@ class Gateway:
     def __init__(self, config):
         self.config = config
 
-    def get_redirection(self, transaction: Transaction) -> rediraction.Redirection:  # pragma: nocover
+    def get_redirection(self, transaction: Transaction) -> redirection.Redirection:  # pragma: nocover
         raise NotImplementedError
 
     def request_transaction(self, transaction: Transaction) -> Transaction:  # pragma: nocover
