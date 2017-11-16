@@ -22,7 +22,7 @@ setup(
     name=package_name,
     version=package_version,
     author='Mahdi Ghanea.g',
-    description='A very micro http framework.',
+    description='Online payment gateways wrapper library.',
     long_description=open('README.rst').read(),
     url='https://github.com/meyt/pyment',
     packages=find_packages(),
