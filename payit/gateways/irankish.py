@@ -70,7 +70,7 @@ class IrankishGateway(Gateway):
             if token:
                 transaction.id = token
             else:
-                raise TransactionError('Irankish: invalid information. %s')
+                raise TransactionError('Irankish: invalid information.')
 
         except zeep_exceptions.Fault:
             raise TransactionError('Irankish: invalid information.')
