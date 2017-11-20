@@ -12,7 +12,8 @@ with open(os.path.join(os.path.dirname(__file__), package_name, '__init__.py')) 
     package_version = re.compile(r".*__version__ = '(.*?)'", re.S).match(v_file.read()).group(1)
 
 dependencies = [
-    'zeep'
+    'zeep',
+    'py3rijndael'
 ]
 
 if py_version < (3, 5):
