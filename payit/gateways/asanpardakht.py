@@ -37,6 +37,7 @@ class AsanPardakhtGateway(Gateway):
             iv=base64.b64decode(config['iv']),
             block_size=32
         )
+        self.rijndael.pad_with = b'\x16'
 
     def _get_request_payload(
             self,
