@@ -11,3 +11,15 @@ Payit
     :target: https://pypi.python.org/pypi/payit
 
 Online payment gateways wrapper library.
+
+
+Supported Gateways
+------------------
+
+(Iran)
+
+- AsanPardakht
+- IranKish
+- Mellat
+- Pay.ir
+- Zarinpal
