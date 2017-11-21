@@ -2,7 +2,7 @@ import base64
 from typing import List, Tuple
 from datetime import datetime
 
-from py3rijndael import RijndaelCBC
+from py3rijndael import RijndaelCbc, Pkcs7Padding
 
 from zeep import Client, exceptions as zeep_exceptions
 
@@ -32,12 +32,12 @@ class AsanPardakhtGateway(Gateway):
 
     def __init__(self, config):
         super().__init__(config)
-        self.rijndael = RijndaelCBC(
+        self.rijndael = RijndaelCbc(
             key=base64.b64decode(config['key']),
             iv=base64.b64decode(config['iv']),
+            padding=Pkcs7Padding(32),
             block_size=32
         )
-        self.rijndael.pad_with = b'\x16'
 
     def _get_request_payload(
             self,

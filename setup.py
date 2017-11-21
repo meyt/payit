@@ -13,7 +13,7 @@ with open(os.path.join(os.path.dirname(__file__), package_name, '__init__.py')) 
 
 dependencies = [
     'zeep',
-    'py3rijndael >= 0.2.0'
+    'py3rijndael >= 0.3.0'
 ]
 
 if py_version < (3, 5):

@@ -2,7 +2,7 @@ import mock
 import base64
 import unittest
 
-from py3rijndael import RijndaelCBC
+from py3rijndael import RijndaelCbc, Pkcs7Padding
 
 from payit import Transaction, TransactionError, GatewayNetworkError
 from payit.gateways import AsanPardakhtGateway
@@ -31,9 +31,10 @@ class AsanPardakhtGatewayTest(unittest.TestCase):
             rrn=1,
             last_four_digit_of_pan=1,
     ):
-        rijndael = RijndaelCBC(
+        rijndael = RijndaelCbc(
             key=base64.b64decode(self._config['key']),
             iv=base64.b64decode(self._config['iv']),
+            padding=Pkcs7Padding(32),
             block_size=32
         )
         data_array = [
