@@ -100,8 +100,7 @@ class IrankishGateway(Gateway):
             if 'proxies' in self.config:
                 client.transport.session.proxies = self.config['proxies']
 
-            result = client.service.KicccPaymentsVerification(**params)
-            result = float(result.KicccPaymentsVerificationResult)
+            result = int(client.service.KicccPaymentsVerification(**params))
             if result > 0:
                 if result != float(transaction.amount):
                     raise TransactionError('Irankish: invalid transaction, amount mismatch')
