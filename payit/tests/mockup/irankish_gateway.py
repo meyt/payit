@@ -23,12 +23,11 @@ def get_side_effect(
                 if raise_zeep_error:
                     raise exceptions.Error('FAKE ZEEP ERROR')
 
-        class KicccPaymentsVerification:
-            def __init__(self, *args, **kwargs):
-                if raise_zeep_error:
-                    raise exceptions.Error('FAKE ZEEP ERROR')
+        def KicccPaymentsVerification(self, *args, **kwargs):
+            if raise_zeep_error:
+                raise exceptions.Error('FAKE ZEEP ERROR')
 
-            KicccPaymentsVerificationResult = verify_result
+            return verify_result
 
     class Client:
         service = ClientService()
