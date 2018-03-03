@@ -44,5 +44,6 @@ class GatewayManagerTest(unittest.TestCase):
         manager.register('dummy_gateway1', DummyGateway)
         manager.configure({'dummy_gateway1': {}})
 
+
 if __name__ == '__main__':  # pragma: nocover
     unittest.main()
