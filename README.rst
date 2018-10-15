@@ -23,3 +23,4 @@ Supported Gateways
 - Mellat
 - Pay.ir
 - Zarinpal
+- Parsian (PECCO)
