@@ -136,7 +136,7 @@ class ParsianGateway(Gateway):
         try:
             data = {
                 'requestData': {
-                    'LoginAccount': self.config['pid'],
+                    'LoginAccount': self.config['pin'],
                     'OrderId': transaction.order_id,
                     'Amount': int(transaction.amount),
                     'CallBackUrl': self.config['callback_url'],
@@ -173,7 +173,7 @@ class ParsianGateway(Gateway):
         try:
             data = {
                 'requestData': {
-                    'LoginAccount': self.config['pid'],
+                    'LoginAccount': self.config['pin'],
                     'Token': transaction.id
                 }
             }
