@@ -99,7 +99,7 @@ Usage
             'Authority': 101
         }
         transaction = manager.validate(selected_gateway, callback_data)
-        if not payit_transaction.validate_status:
+        if not transaction.validate_status:
             raise RuntimeError('Transaction is not valid')
 
         # Check `transaction.id` exist on your database
