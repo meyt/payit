@@ -13,7 +13,8 @@ Payit
 Online payment gateways wrapper library.
 
 
-## Supported Gateways
+Supported Gateways
+------------------
 
 (Iran)
 
@@ -25,16 +26,19 @@ Online payment gateways wrapper library.
 - Parsian (PECCO)
 
 
-## Install
+Install
+-------
 
-```bash
+.. code-block:: bash
+
     pip install payit
-```
 
 
-## Usage
 
-```python
+Usage
+-----
+
+.. code-block:: python
 
     from payit import (
         GatewayManager,
@@ -114,4 +118,3 @@ Online payment gateways wrapper library.
         print('Something wrong on payment')
         raise
 
-```
