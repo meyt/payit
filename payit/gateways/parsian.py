@@ -135,18 +135,17 @@ class ParsianGateway(Gateway):
             client.transport.session.proxies = self.config['proxies']
         try:
             data = {
-                'requestData': {
-                    'LoginAccount': self.config['pin'],
-                    'OrderId': transaction.order_id,
-                    'Amount': int(transaction.amount),
-                    'CallBackUrl': self.config['callback_url'],
-                }
+                'LoginAccount': self.config['pin'],
+                'OrderId': transaction.order_id,
+                'Amount': int(transaction.amount),
+                'CallBackUrl': self.config['callback_url'],
             }
-            result = client.service.SalePaymentRequest(data)
+            result = client.service.SalePaymentRequest(requestData=data)
             token = result.Token
             status = int(result.Status)
             if token and status == 0:
-                transaction.id = token
+                transaction.id = str(token)
+
             else:
                 raise TransactionError('Parsian: %s-%s' % (
                     status,
@@ -172,16 +171,14 @@ class ParsianGateway(Gateway):
     def verify_transaction(self, transaction: Transaction, data):
         try:
             data = {
-                'requestData': {
-                    'LoginAccount': self.config['pin'],
-                    'Token': transaction.id
-                }
+                'LoginAccount': self.config['pin'],
+                'Token': transaction.id
             }
             client = Client(self._server_url_verify)
             if 'proxies' in self.config:
                 client.transport.session.proxies = self.config['proxies']
 
-            result = client.service.ConfirmPayment(data)
+            result = client.service.ConfirmPayment(requestData=data)
             status = int(result.Status)
             if status == -1533:
                 raise TransactionAlreadyPaidError(
