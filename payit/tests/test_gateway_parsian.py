@@ -8,7 +8,7 @@ from payit.tests.mockup.parsian_gateway import get_side_effect
 
 class ParsianGatewayTest(unittest.TestCase):
     _config = {
-        'pid': '1234',
+        'pin': '1234',
         'callback_url': 'http://localhost/callback',
         'proxies': 'socks5://127.0.0.1:9050'
     }
