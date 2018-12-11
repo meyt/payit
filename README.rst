@@ -10,7 +10,7 @@ Payit
 .. image:: https://img.shields.io/pypi/pyversions/payit.svg
     :target: https://pypi.python.org/pypi/payit
 
-Online payment gateways wrapper library.
+Online payment gateways wrapper library. 💳
 
 
 Supported Gateways
@@ -32,7 +32,6 @@ Install
 .. code-block:: bash
 
     pip install payit
-
 
 
 Usage
@@ -107,7 +106,7 @@ Usage
         if transaction.id not in my_database:
             raise RuntimeError('Transaction is not exists')
 
-        # Now verify your
+        # Now verify transaction
         manager.verify(selected_gateway, callback_data)
 
     except TransactionAlreadyPaidError:
@@ -117,4 +116,6 @@ Usage
     except PayitException:
         print('Something wrong on payment')
         raise
+
+    # Payment succeed! 🎉
 
