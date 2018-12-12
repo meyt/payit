@@ -27,13 +27,13 @@ class ParsianGatewayTest(unittest.TestCase):
 
         valid_transaction = gateway.validate_transaction({
             'Token': '4444',
-            'Status': '0'
+            'status': '0'
         })
         self.assertEqual(valid_transaction.validate_status, True)
 
         invalid_transaction = gateway.validate_transaction({
             'Token': '4444',
-            'Status': '300'
+            'status': '300'
         })
         self.assertEqual(invalid_transaction.validate_status, False)
 

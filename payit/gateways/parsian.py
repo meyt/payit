@@ -164,7 +164,7 @@ class ParsianGateway(Gateway):
         transaction = Transaction()
         transaction.id = data['Token']
         transaction.meta = data
-        if 'Status' in data and int(data['Status']) == 0:
+        if 'status' in data and int(data['status']) == 0:
             transaction.validate_status = True
         return transaction
 
