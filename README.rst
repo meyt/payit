@@ -24,6 +24,7 @@ Supported Gateways
 - Pay.ir
 - Zarinpal
 - Parsian (PECCO)
+- Bahamta
 
 
 Install

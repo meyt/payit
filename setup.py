@@ -13,6 +13,7 @@ with open(os.path.join(os.path.dirname(__file__), package_name, '__init__.py')) 
 
 dependencies = [
     'zeep',
+    'requests',
     'py3rijndael >= 0.3.0'
 ]
 
