@@ -107,5 +107,5 @@ class BahamtaGateway(Gateway):
 
         if int(transaction.amount) != int(response_data['amount']):
             raise TransactionError('Amount mismatch')
-
+        transaction.meta = response_data
         return transaction
