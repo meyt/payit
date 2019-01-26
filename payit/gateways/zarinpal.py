@@ -7,6 +7,9 @@ from payit.redirection import Redirection
 class ZarinpalGateway(Gateway):
     """
     Zarinpal Gateway
+
+    Note: transaction.pan not supported.
+
     Home: https://zarinpal.com
     Documentation: https://github.com/ZarinPal-Lab/Documentation-PaymentGateway/archive/master.zip
     """

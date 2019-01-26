@@ -14,6 +14,7 @@ def get_side_effect(
     class Result:
         Token = returned_token
         Status = returned_status
+        CardNumberMasked = '1111-2222-3333-4444'
 
     class ClientService:
         def SalePaymentRequest(self, *args, **kwargs):

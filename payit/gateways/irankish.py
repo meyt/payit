@@ -7,6 +7,9 @@ from payit.redirection import Redirection
 class IrankishGateway(Gateway):
     """
     Irankish
+
+    Note: transaction.pan not supported.
+
     Home: https://www.irankish.com
     Documentation: http://www.kiccc.com/App_Data_Public/downloads/%D8%B1%D8%A7%D9%87%D9%86%D9%85%D8%A7%DB%8C%20%D9%81%D9%86%DB%8C%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C.pdf
     """

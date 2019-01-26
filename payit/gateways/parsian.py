@@ -12,6 +12,7 @@ from payit.redirection import Redirection
 class ParsianGateway(Gateway):
     """
     Parsian Bank Gateway (PECCO)
+
     Home: https://pec.ir
     Documentation: https://pgw.pec.ir/IPG/NewIPGDocument.pdf
     """
@@ -194,4 +195,5 @@ class ParsianGateway(Gateway):
         except zeep_exceptions.Error:
             raise GatewayNetworkError
 
+        transaction.pan = result.CardNumberMasked
         return transaction

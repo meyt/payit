@@ -8,8 +8,9 @@ from payit.redirection import Redirection
 class PayIrGateway(Gateway):
     """
     Pay.ir Gateway
+
     Home: https://pay.ir
-    Documentation: https://pay.ir/developers/gateway-help
+    Documentation: https://pay.ir/docs/gateway/
     """
     __gateway_name__ = 'payir'
     __gateway_unit__ = 'IRR'
@@ -39,11 +40,11 @@ class PayIrGateway(Gateway):
         except error.URLError:
             raise GatewayNetworkError('Cannot connect to payline server.')
 
-        if resp['status'] == 1 and resp['transId']:
-            transaction.id = resp['transId']
-        else:
-            raise TransactionError('%s, code: %s' % (resp['errorMessage'], resp['errorCode']))
+        if not (resp['status'] == 1 and resp['transId']):
+            raise TransactionError(
+                '%s, code: %s' % (resp['errorMessage'], resp['errorCode']))
 
+        transaction.id = resp['transId']
         return transaction
 
     def validate_transaction(self, data: dict) -> Transaction:
@@ -75,10 +76,12 @@ class PayIrGateway(Gateway):
         except error.URLError:
             raise GatewayNetworkError('Cannot connect to payline server.')
 
-        if int(resp['status']) == 1:
-            if int(transaction.amount) == int(resp['amount']):
-                return transaction
-            else:
-                raise TransactionError('Amount mismatch')
-        else:
-            raise TransactionError('%s, code: %s' % (resp['errorMessage'], resp['errorCode']))
+        if int(resp['status']) != 1:
+            raise TransactionError(
+                '%s, code: %s' % (resp['errorMessage'], resp['errorCode']))
+
+        if int(transaction.amount) != int(resp['amount']):
+            raise TransactionError('Amount mismatch')
+
+        transaction.pan = resp['cardNumber']
+        return transaction

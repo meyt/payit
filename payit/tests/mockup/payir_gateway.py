@@ -25,6 +25,7 @@ def get_side_effect(
                 return json.dumps(
                     {
                         'transId': returned_token,
+                        'cardNumber': '1111-2222-3333-4444',
                         'status': returned_status,
                         'amount': returned_amount,
                         'errorMessage': error_message,

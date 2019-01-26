@@ -8,6 +8,9 @@ from payit.redirection import Redirection
 class MellatGateway(Gateway):
     """
     BankMellat
+
+    TODO: transaction.pan not implemented.
+
     Home: https://www.behpardakht.com
     Documentation: https://www.behpardakht.com (Stupidly documentation is private!)
     """

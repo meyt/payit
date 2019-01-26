@@ -14,6 +14,9 @@ from payit.redirection import Redirection
 class AsanPardakhtGateway(Gateway):
     """
     Irankish
+
+    TODO: transaction.pan not implemented
+
     Home: http://asanpardakht.ir/
     Documentation: http://asanpardakht.ir/ipgdownload/ipgdoc.pdf
     """
