@@ -1,3 +1,4 @@
+import json
 
 
 class Transaction:
@@ -32,3 +33,6 @@ class Transaction:
             'validate_status': self.validate_status,
             'meta': self.meta
         }
+
+    def __repr__(self):
+        return json.dumps(self.to_dict(), indent=4, sort_keys=True)

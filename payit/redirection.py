@@ -1,3 +1,4 @@
+import json
 
 
 class Redirection:
@@ -24,3 +25,6 @@ class Redirection:
             body_params=self.body_params,
             header_params=self.header_params
         )
+
+    def __repr__(self):
+        return json.dumps(self.to_dict(), indent=4, sort_keys=True)
