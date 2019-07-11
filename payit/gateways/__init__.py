@@ -5,7 +5,7 @@ from .irankish import IrankishGateway
 from .asanpardakht import AsanPardakhtGateway
 from .parsian import ParsianGateway
 from .bahamta import BahamtaGateway
-
+from .dummy import DummyGateway
 
 __all__ = (
     MellatGateway,
@@ -14,5 +14,6 @@ __all__ = (
     IrankishGateway,
     AsanPardakhtGateway,
     ParsianGateway,
-    BahamtaGateway
+    BahamtaGateway,
+    DummyGateway
 )
