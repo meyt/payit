@@ -1,15 +1,13 @@
-import re
-import os.path
-import sys
-
 from setuptools import setup, find_packages
 
+def read_version(module_name):
+    from re import match, S
+    from os.path import join, dirname
+
+    with open(join(dirname(__file__), module_name, "__init__.py")) as f:
+        return match(r".*__version__.*('|\")(.*?)('|\")", f.read(), S).group(2)
+
 package_name = 'payit'
-
-# reading package's version (same way sqlalchemy does)
-with open(os.path.join(os.path.dirname(__file__), package_name, '__init__.py')) as v_file:
-    package_version = re.compile(r".*__version__ = '(.*?)'", re.S).match(v_file.read()).group(1)
-
 dependencies = [
     'zeep >= 3.4.0',
     'requests >= 2.22.0',
@@ -18,7 +16,7 @@ dependencies = [
 
 setup(
     name=package_name,
-    version=package_version,
+    version=read_version(package_name),
     author='Mahdi Ghanea.g',
     description='Online payment gateways wrapper library.',
     long_description=open('README.rst').read(),
