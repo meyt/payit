@@ -11,8 +11,8 @@ with open(os.path.join(os.path.dirname(__file__), package_name, '__init__.py')) 
     package_version = re.compile(r".*__version__ = '(.*?)'", re.S).match(v_file.read()).group(1)
 
 dependencies = [
-    'zeep',
-    'requests',
+    'zeep >= 3.4.0',
+    'requests >= 2.22.0',
     'py3rijndael >= 0.3.0'
 ]
 
