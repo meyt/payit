@@ -4,12 +4,13 @@ from zeep import exceptions
 
 
 def get_side_effect(
-        returned_token='0,4444',
-        verify_result=0,
-        settle_result=0,
-        reversal_result=0,
-        raise_zeep_fault=False,
-        raise_zeep_error=False):
+    returned_token="0,4444",
+    verify_result=0,
+    settle_result=0,
+    reversal_result=0,
+    raise_zeep_fault=False,
+    raise_zeep_error=False,
+):
     # noinspection PyPep8Naming
     # noinspection PyMethodMayBeStatic
     # noinspection PyUnusedLocal
@@ -17,15 +18,15 @@ def get_side_effect(
     class ClientService:
         def bpPayRequest(self, *args, **kwargs):
             if raise_zeep_fault:
-                raise exceptions.Fault('FAKE ZEEP FAULT')
+                raise exceptions.Fault("FAKE ZEEP FAULT")
 
             if raise_zeep_error:
-                raise exceptions.Error('FAKE ZEEP ERROR')
+                raise exceptions.Error("FAKE ZEEP ERROR")
             return returned_token
 
         def bpVerifyRequest(self, *args, **kwargs):
             if raise_zeep_error:
-                raise exceptions.Error('FAKE ZEEP ERROR')
+                raise exceptions.Error("FAKE ZEEP ERROR")
 
             return verify_result
 

@@ -1,4 +1,6 @@
+# flake8: noqa
 from .transaction import Transaction
+from .redirection import Redirection
 from .gateway import Gateway
 from .manager import GatewayManager, GatewayManagerTesting
 from .exceptions import (
@@ -9,6 +11,7 @@ from .exceptions import (
     TransactionError,
     TransactionNotFoundError,
     TransactionInvalidError,
-    TransactionAlreadyPaidError
+    TransactionAlreadyPaidError,
 )
-__version__ = '0.8.3'
+
+__version__ = "0.8.3"

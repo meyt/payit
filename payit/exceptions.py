@@ -1,5 +1,3 @@
-
-
 class PayitException(Exception):
     pass
 

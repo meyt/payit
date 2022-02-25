@@ -4,10 +4,11 @@ from zeep import exceptions
 
 
 def get_side_effect(
-        returned_token='RETURNED_TOKEN',
-        returned_status=100,
-        raise_zeep_fault=False,
-        raise_zeep_error=False):
+    returned_token="RETURNED_TOKEN",
+    returned_status=100,
+    raise_zeep_fault=False,
+    raise_zeep_error=False,
+):
     # noinspection PyPep8Naming
     # noinspection PyMethodMayBeStatic
     # noinspection PyUnusedLocal
@@ -19,17 +20,17 @@ def get_side_effect(
 
             def __init__(self, *args, **kwargs):
                 if raise_zeep_fault:
-                    raise exceptions.Fault('FAKE ZEEP FAULT')
+                    raise exceptions.Fault("FAKE ZEEP FAULT")
 
                 if raise_zeep_error:
-                    raise exceptions.Error('FAKE ZEEP ERROR')
+                    raise exceptions.Error("FAKE ZEEP ERROR")
 
         class PaymentVerification:
             Status = returned_status
 
             def __init__(self, *args, **kwargs):
                 if raise_zeep_error:
-                    raise exceptions.Error('FAKE ZEEP ERROR')
+                    raise exceptions.Error("FAKE ZEEP ERROR")
 
     class Client:
         service = ClientService()

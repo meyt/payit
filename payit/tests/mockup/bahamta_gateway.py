@@ -1,14 +1,14 @@
-
 from requests import RequestException
 
 
 def get_side_effect(
-        returned_id=1,
-        returned_amount=100,
-        returned_status='request',
-        return_list=True,
-        raise_url_error=False,
-        http_status_code=200):
+    returned_id=1,
+    returned_amount=100,
+    returned_status="request",
+    return_list=True,
+    raise_url_error=False,
+    http_status_code=200,
+):
     # noinspection PyUnusedLocal
 
     def urlopen(*args, **kwargs):
@@ -40,9 +40,10 @@ def get_side_effect(
                     "pay_trace": "",
                     "pay_pan": "",
                     "transfer_estimate": None,
-                    "transfer_trace": ""
+                    "transfer_trace": "",
                 }
                 return [data] if return_list else data
 
         return Response()
+
     return urlopen
