@@ -24,6 +24,11 @@ def test_pay_ir():
         )
         gateway.get_redirection(transaction)
 
+        # optional meta fields
+        gateway.request_transaction(
+            Transaction(amount=1000, meta=dict(validCardNumber="123"))
+        )
+
         valid_transaction = gateway.validate_transaction(
             {"token": "RETURNED_TOKEN", "status": "1"}
         )
@@ -51,6 +56,16 @@ def test_pay_ir():
     # invalid transaction
     with domock(get_side_effect(http_status_code=402)):
         with pytest.raises(TransactionError):
+            gateway.request_transaction(Transaction(amount=1000, order_id=1))
+
+        with pytest.raises(TransactionError):
+            gateway.verify_transaction(transaction, dict())
+
+    with domock(get_side_effect(http_status_code=422, invalid_json=True)):
+        with pytest.raises(TransactionError):
+            gateway.request_transaction(Transaction(amount=1000, order_id=1))
+
+        with pytest.raises(TransactionError):
             gateway.verify_transaction(transaction, dict())
 
     # invalid transaction id
@@ -61,7 +76,7 @@ def test_pay_ir():
     # verification network error
     with domock(get_side_effect(raise_url_error=True)):
         with pytest.raises(GatewayNetworkError):
-            gateway.verify_transaction(transaction, dict())
+            gateway.request_transaction(Transaction(amount=1000, order_id=1))
 
         with pytest.raises(GatewayNetworkError):
-            gateway.request_transaction(Transaction(amount=1000, order_id=1))
+            gateway.verify_transaction(transaction, dict())

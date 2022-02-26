@@ -9,6 +9,7 @@ def get_side_effect(
     error_code=None,
     raise_url_error=False,
     http_status_code=200,
+    invalid_json=False,
 ):
     def urlopen(*args, **kwargs):
         if raise_url_error:
@@ -19,7 +20,10 @@ def get_side_effect(
 
             @staticmethod
             def json():
-                data = {
+                if invalid_json:
+                    raise ValueError
+
+                return {
                     "token": returned_token,
                     "transId": returned_token,
                     "cardNumber": "1111-2222-3333-4444",
@@ -30,7 +34,6 @@ def get_side_effect(
                     "errorMessage": error_message,
                     "errorCode": error_code,
                 }
-                return data
 
         return Response()
 
