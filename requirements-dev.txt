@@ -1,4 +1,4 @@
-nose
+pytest
+pytest-cov
 mock
-coverage
 coveralls

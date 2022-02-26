@@ -12,5 +12,5 @@ before_install:
   - pip install -U pip setuptools wheel
   - pip install -r requirements-dev.txt
 install: pip install -e .
-script: coverage run --source payit $(which nosetests)
+script: py.test -s -vv --cov-report term-missing:skip-covered --cov=payit
 after_success: if [[ $TRAVIS_PYTHON_VERSION == '3.6' ]]; then travis_retry coveralls; fi
