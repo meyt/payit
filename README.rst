@@ -18,13 +18,14 @@ Supported Gateways
 
 (Iran)
 
+- Aqayepardakht
 - AsanPardakht
+- Bahamta
 - IranKish
 - Mellat
+- Parsian (PECCO)
 - Pay.ir
 - Zarinpal
-- Parsian (PECCO)
-- Bahamta
 
 
 Install
