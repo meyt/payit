@@ -74,7 +74,3 @@ def test_gateway():
 
         with pytest.raises(GatewayNetworkError):
             gateway.request_transaction(Transaction(amount=1000, order_id=1))
-
-    with domock(get_side_effect(returned_text="abcd")):
-        with pytest.raises(GatewayNetworkError):
-            gateway.request_transaction(Transaction(amount=1000))

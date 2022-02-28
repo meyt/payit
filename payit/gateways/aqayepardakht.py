@@ -62,9 +62,6 @@ class AqayepardakhtGateway(Gateway):
                 "Invalid transaction information (%s)" % response.status_code
             )
 
-        if not response.text.replace("-", "").isdigit():
-            raise GatewayNetworkError("Invalid aqayepardakht gateway response")
-
         transaction.id = response.text
         return transaction
 
