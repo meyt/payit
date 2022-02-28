@@ -1,26 +1,37 @@
 import json
 
+from typing import Union
+from decimal import Decimal
+
+
+AmountType = Union[int, float, Decimal]
+
 
 class Transaction:
-    """
-    Attributes:
-        id                  Generate by gateway server
-        order_id            Required, and must unique per transaction
-        amount              Required to set from your invoice on `request` and `verify`
-        validate_status     Value given on `validation`
-        pan                 Payment Card Number fills on `verification`
-        meta                Temporary data for transaction
-    """
+    # Generate by gateway server
+    id: str = None
 
-    id = None
-    order_id = None
-    amount = None
-    pan = None
-    validate_status = False
-    meta = dict()
+    # Required to set from the invoice on `request` and `verify`
+    amount: AmountType = None
+
+    # Required in many gateways, usually its the invoice ID in your app.
+    order_id: str = None
+
+    # Payment Card Number fills on `verification`
+    pan: str = None
+
+    # Value given on `validation`
+    validate_status: bool = False
+
+    # Temporary data for transaction
+    meta: dict = dict()
 
     def __init__(
-        self, amount=None, order_id=None, pan=None, meta: dict = None
+        self,
+        amount: AmountType = None,
+        order_id: str = None,
+        pan: str = None,
+        meta: dict = None,
     ):
         if meta:
             self.meta = meta
@@ -28,7 +39,7 @@ class Transaction:
         self.order_id = order_id
         self.pan = pan
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "id": self.id,
             "order_id": self.order_id,
@@ -37,5 +48,5 @@ class Transaction:
             "meta": self.meta,
         }
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return json.dumps(self.to_dict(), indent=4, sort_keys=True)
