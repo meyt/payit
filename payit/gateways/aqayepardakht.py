@@ -24,6 +24,25 @@ class AqayepardakhtGateway(Gateway):
     __gateway_unit__ = "IRR"
     __config_params__ = ["pin", "callback_url"]
     _server_url = "https://panel.aqayepardakht.ir/api"
+    _verify_status_map = {
+        "2": "already verified",
+        "1": "paid",
+        "0": "not paid",
+        "-1": "amount is empty",
+        "-2": "pin is empty",
+        "-3": "callback is empty",
+        "-4": "amount is not numeric",
+        "-5": "amount is less than minimum (100)",
+        "-6": "pin is invalid",
+        "-7": "server ip mismatch",
+        "-8": "transid is empty",
+        "-9": "transaction not found",
+        "-10": "transaction pin mismatch",
+        "-11": "transaction amount mismatch",
+        "-12": "invalid bank",
+        "-13": "inactive gateway",
+        "-14": "gateway already used",
+    }
 
     def get_redirection(self, transaction) -> Redirection:
         return Redirection(
@@ -99,7 +118,11 @@ class AqayepardakhtGateway(Gateway):
         if response.text == "2":
             raise TransactionAlreadyPaidError
 
-        if response.text == "0":
-            raise TransactionError("Transaction not paid")
+        if response.text != "1":
+            raise TransactionError(
+                self._verify_status_map.get(
+                    response.text.strip(), "Transaction not paid"
+                )
+            )
 
         return transaction
