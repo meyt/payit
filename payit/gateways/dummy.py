@@ -14,6 +14,9 @@ class DummyGateway(Gateway):
     __config_params__ = ["pin", "callback_url", "maximum_amount"]
     __base_url__ = "https://dummy-gateway.localhost"
 
+    def _generate_id(self):
+        return int(time.time())
+
     @property
     def maximum_amount(self) -> int:
         return int(self.config["maximum_amount"] or 1000000)
@@ -32,7 +35,7 @@ class DummyGateway(Gateway):
                 "Amount is larger than %s" % self.maximum_amount
             )
 
-        transaction.id = int(time.time())
+        transaction.id = self._generate_id()
         print("New transaction requested: \n%s" % transaction.__repr__())
         return transaction
 
